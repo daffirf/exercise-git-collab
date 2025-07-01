@@ -49,23 +49,37 @@ let formatted: string = new Intl.NumberFormat('id-ID', {
 
 console.log(formatted)
 
-// case 5: remove the first occurrence of a character from a string
-// ambil input string utama dan search string
-// cari posisi index di dalam string utama
-// jika ditemukan, buat string baru tanpa bagian search string tsb
-// jika tidak, string tetap sama
+// case 5: remove the first occurrence of a substring from a string
+let mainText: string = "Hello World" // string utama
+let searchText: string = "ell"       // substring yang dicari
 
-let mainString: string = "Hello World"
-let searchString: string = "ell"
+let output: string = ""              // untuk menampung hasil akhir setelah substring dipotong
+let found: boolean = false           // untuk menandakan bagian mana yang cocok sesuai dengan hasil search
+let k: number = 0
 
-let index = mainString.indexOf(searchString)
+while (k < mainText.length) {
+    let match: boolean = true
+    let b: number = 0
 
-if(index !== -1){
-    let result = mainString.slice(0, index) + mainString.slice(index + searchString.length)
-    console.log(result)
-}else{
-    console.log(mainString)
+    // cek apakah substring cocok
+    while (b < searchText.length && k + b < mainText.length) {
+        if (mainText[k + b] !== searchText[b]) {
+            match = false
+        }
+        b = b + 1
+    }
+
+    // jika cocok dan belum pernah dihapus sebelumnya
+    if (match && !found) {
+        k = k + searchText.length // skip substring
+        found = true
+    } else {
+        output = output + mainText[k] // tambahkan karakter ke hasil
+        k = k + 1
+    }
 }
+
+console.log(output)
 
 // case 6: capitalize the first letter of each word in a string
 // pecah string menjadi array kata-kata (split dengan spasi)
@@ -74,11 +88,13 @@ if(index !== -1){
 
 let cap: string = "hello world"
 let words = cap.split(" ")
+let a = 0
 
-for (let i = 0; i < words.length; i++){
-    if(words[i].length > 0){
-        words[i] = words[i][0].toUpperCase() + words[i].slice(1)
+while (a < words.length) {
+    if (words[a].length > 0) {
+        words[a] = words[a][0].toUpperCase() + words[a].slice(1)
     }
+    a++
 }
 
 let result: string = words.join(" ")
@@ -94,14 +110,16 @@ console.log(result)
 
 let chg: string = "The QuiCk BrOwN Fox"
 let swapped: string = ""
+let temp = 0
 
-for(let i = 0; i < chg.length; i++){
-    let char = chg[i]
-    if(char === char.toUpperCase()){
+while (temp < chg.length) {
+    let char = chg[temp]
+    if (char === char.toUpperCase()) {
         swapped += char.toLowerCase()
-    }else{
+    } else {
         swapped += char.toUpperCase()
     }
+    temp++
 }
 
 console.log(swapped)
@@ -124,4 +142,66 @@ if (num1 > num2){
 console.log(largest)
 
 // case 9: conditional statement to sort three numbers
-// jika num 1 > 
+// jika nom1 > nom2, tukar nom1 dan nom2
+// jika nom1 > nom3, tukar nom1 dan nom3
+// jika nom2 > nom3, tukar nom2 dan nom3
+
+let nom1: number = 42
+let nom2: number = 27
+let nom3: number = 18
+
+if(nom1 > nom2){
+    let sem: number = nom1
+    nom1 = nom2
+    nom2 = sem
+}
+
+if(nom1 > nom3){
+    let sem: number = nom1
+    nom1 = nom3
+    nom3 = sem
+}
+
+if(nom2 > nom3){
+    let sem: number = nom2
+    nom2 = nom3
+    nom3 = sem
+}
+
+console.log(nom1, nom2, nom3)
+
+// case 10: shows 1 if the input is a string, 2 if the input is a number, and 3 for others data type
+// cek tipe data input
+// jika string, tampilkan 1
+// jika number, tampilkan 2
+// selain itu, tampilkan 3
+
+let input: any = "hello"
+
+if (typeof input === "string") {
+    console.log(1)
+} else if (typeof input === "number") {
+    console.log(2)
+} else {
+    console.log(3)
+}
+
+// case 11: change every letter a into * from a string of input
+// ambil input string
+// buat string kosong untuk hasil
+// gunakan while untuk iterasi setiap karakter
+
+let text: string = "An apple a day keeps the doctor away"
+let replaced: string = ""
+let idx = 0
+
+while (idx < text.length) {
+    let char = text[idx]
+    if (char === 'a' || char === 'A') {
+        replaced += '*'
+    } else {
+        replaced += char
+    }
+    idx++
+}
+console.log(replaced)
